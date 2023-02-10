@@ -1,3 +1,5 @@
+import Categories from "./components/categories/categories.component";
+
 import './categories.styles.scss'
 
 const App = () => {
@@ -5,46 +7,42 @@ const App = () => {
   const categories = [
     {
       id: 1,
-      title: "Chris's Plushies",
-      subtitle: 'Gotta catch em all!'
+      title: "Kodis pokis",
+      subtitle: 'Gotta catch em all!',
+      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/kodis-pokis.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675994134567',
+
     },
     {
       id: 2,
       title: "Los's rootin tootin cowboy hides",
-      subtitle: 'Gotta catch em all!'
+      subtitle: 'YEEEHAWWW!',
+      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/los-cowboy-booys.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993887308'
+
     },
     {
       id: 3,
       title: 'Tavios Gambling Wares',
-      subtitle: 'Gotta catch em all!'
+      subtitle: 'Theres no better form of addiction',
+      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/tavio-gambling.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993150035'
     },
     {
       id: 4,
       title: 'Kevins Ninja Arsenal',
-      subtitle: 'Gotta catch em all!'
+      subtitle: 'One with the blade.',
+      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/kevins-ninja.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993887005'
+
     },
     {
       id: 5,
       title: 'Juans Marvel Comics',
-      subtitle: 'Gotta catch em all!'
+      subtitle: 'Gotta catch em all!',
+      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/juans-comics.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993887367'
     }
   ]
 
   return (
     <>
-
-      <div className="categories-container">
-        {categories.map((category) => (
-          <div key={category.id} className="category-container">
-            {/*img*/}
-            <div className="category-body-container">
-              <h2>{category.title}</h2>
-              <p>{category.subtitle}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
+      <Categories categories={categories}/>
     </>
   );
 }
