@@ -1,49 +1,20 @@
-import Categories from "./components/categories/categories.component";
+import { Routes, Route } from 'react-router-dom';
 
-import './categories.styles.scss'
+import Home from './routes/home/home.component';
+import Navigation from "./routes/navigation/navigation.component";
+
+const Shop = () => {
+  return <h1> I am the shop page</h1>
+};
 
 const App = () => {
-
-  const categories = [
-    {
-      id: 1,
-      title: "Kodis pokis",
-      subtitle: 'Gotta catch em all!',
-      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/kodis-pokis.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675994134567',
-
-    },
-    {
-      id: 2,
-      title: "Los's rootin tootin cowboy hides",
-      subtitle: 'YEEEHAWWW!',
-      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/los-cowboy-booys.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993887308'
-
-    },
-    {
-      id: 3,
-      title: 'Tavios Gambling Wares',
-      subtitle: 'Theres no better form of addiction',
-      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/tavio-gambling.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993150035'
-    },
-    {
-      id: 4,
-      title: 'Kevins Ninja Arsenal',
-      subtitle: 'One with the blade.',
-      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/kevins-ninja.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993887005'
-
-    },
-    {
-      id: 5,
-      title: 'Juans Marvel Comics',
-      subtitle: 'Gotta catch em all!',
-      imageUrl: 'https://ik.imagekit.io/qfqsr7s9y/juans-comics.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1675993887367'
-    }
-  ]
-
   return (
-    <>
-      <Categories categories={categories}/>
-    </>
+    <Routes>
+      <Route path='/' element={<Navigation/>} >
+        <Route index={true} element={<Home/>}/>
+        <Route path='/shop' element={<Shop/>}/>
+      </Route>
+    </Routes>
   );
 }
 

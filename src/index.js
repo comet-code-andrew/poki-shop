@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from "react-router-dom";
+
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -7,7 +9,13 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/*
+      In order for us to take advantage of browser routing functionalities we must wrap our entire app within the
+      BrowserRouter component.
+    */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 
