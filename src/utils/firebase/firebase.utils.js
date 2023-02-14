@@ -18,6 +18,8 @@ Firestore important notes
 
 */
 
+
+
 // InitializeApp is mandatory to leverage firebase features
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
@@ -45,17 +47,19 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 
-// These are particular to google authentication, no real high level thing to learn here it's just how Google wants it
-const provider = new GoogleAuthProvider();
+// There is a particula
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: "select_account"
 });
 
 // Generally you have a single authenticator for an application
 export const auth = getAuth();
+
 // but can have many providers, here we only create a single one with google, yahoo, email etc;
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 // db is a singletone instance
 export const db = getFirestore();
@@ -89,12 +93,6 @@ export const createUserDocumentFromAuth = async (userAuth) => {
       console.log('error creating the user', error.message);
     }
   }
-
   return userDocRef;
-  // We want to first check if the user data exists
-
-  // If doesnt exist create/set the document with the data from userAuth from collection
-
-  // If it does, return the userdata
 }
 
