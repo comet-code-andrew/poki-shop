@@ -1,12 +1,23 @@
 import { Outlet, Link } from "react-router-dom";
 // Great thing about using Links is that whatever you wrap in them you give navigation like functjonality, ex logos
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 
 import { ReactComponent as CCLogo } from "../../assets/logo.svg";
+import { UserContext } from '../../contexts/user.context';
+
+import { signOutUser } from '../../utils/firebase/firebase.utils';
 
 import './navigation.styles.scss';
 
 const Navigation = () => {
+  const { currentUser} = useContext(UserContext);
+
+  const signOutHandler = async () => {
+    const res = await signOutUser();
+    console.log(res)
+  }
+
+  console.log(currentUser);
   return (
     <Fragment>
       <div className='navigation'>
@@ -17,6 +28,15 @@ const Navigation = () => {
           <Link className='nav-link' to='/shop'>
             SHOP
           </Link>
+          {
+            currentUser ? (
+              <span className='nav-link' onClick={signOutHandler}>SIGN OUT</span>
+            ) : (
+              <Link className='nav-link' to='/auth'>
+                SIGN IN
+              </Link>
+            )
+          }
           <Link className='nav-link' to='/auth'>
             Sign In
           </Link>

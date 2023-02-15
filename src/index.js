@@ -6,15 +6,15 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {UserProvider, userProvider} from './contexts/user.context'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/*
-      In order for us to take advantage of browser routing functionalities we must wrap our entire app within the
-      BrowserRouter component.
-    */}
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
