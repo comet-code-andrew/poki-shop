@@ -22,13 +22,10 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if(password !== confirmPassword) {
       alert("passwords do not match");
       return;
     }
-
-    // See if the user is authenticated
     try {
       const { user } = await createAuthUserWithEmailAndPassword(email, password);
       await createUserDocumentFromAuth(user, { displayName })
@@ -40,9 +37,6 @@ const SignUpForm = () => {
         console.log('user creation encountered an error', error);
       }
     }
-
-    // Create the user document
-
   }
 
   const handleChange = (event) => {
