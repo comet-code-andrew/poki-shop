@@ -14,10 +14,8 @@ const Navigation = () => {
 
   const signOutHandler = async () => {
     const res = await signOutUser();
-    console.log(res)
   }
 
-  console.log(currentUser);
   return (
     <Fragment>
       <div className='navigation'>

@@ -68,7 +68,6 @@ export const auth = getAuth();
 
 // but can have many providers, here we only create a single one with google, yahoo, email etc;
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 // db is a singletone instance
 export const db = getFirestore();
@@ -78,7 +77,7 @@ export const db = getFirestore();
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
-) => {
+  ) => {
   if(!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
@@ -107,13 +106,11 @@ export const createUserDocumentFromAuth = async (
 
 export const createAuthUserWithEmailAndPassword = async( email, password) => {
   if(!email || !password) return;
-
   return createUserWithEmailAndPassword(auth, email, password)
 }
 
 export const signInAuthUserWithEmailAndPassword = async( email, password) => {
   if(!email || !password) return;
-
   return signInWithEmailAndPassword(auth, email, password)
 }
 
