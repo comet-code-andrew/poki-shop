@@ -38,6 +38,10 @@ import {
   doc,
   getDoc,
   setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration - copies over from the firebase/app remember we also must activate Google auth
@@ -72,8 +76,33 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 // db is a singletone instance
 export const db = getFirestore();
 
-// This function takes a pre-authenticated user object that is retrieved by calling a createAuthUser... method.
-// We then perform some checks, and create the document onto the firestore for this user.
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  })
+
+  await batch.commit();
+  console.log('done')
+}
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot)=> {
+    const { title, items } = docSnapshot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  },{});
+
+  return categoryMap;
+}
+
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
