@@ -1,3 +1,4 @@
+import { useSelector} from "react-redux";
 import { Outlet, Link } from "react-router-dom";
 // Great thing about using Links is that whatever you wrap in them you give navigation like functjonality, ex logos
 import { Fragment, useContext } from 'react';
@@ -8,6 +9,7 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 import { ReactComponent as CCLogo } from "../../assets/logo.svg";
 import { UserContext } from '../../contexts/user.context';
 import { CartContext } from '../../contexts/cart.context';
+import { selectCurrentUser} from "../../store/user/user.selector";
 
 
 import { signOutUser } from '../../utils/firebase/firebase.utils';
@@ -16,7 +18,9 @@ import { NavigationContainer, NavLinks, NavLink, LogoContainer } from "./navigat
 
 
 const Navigation = () => {
-  const { currentUser} = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser)
+
+  // const { currentUser} = useContext(UserContext);
   const { isCartOpen } = useContext(CartContext);
 
   const signOutHandler = async () => {

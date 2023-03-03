@@ -1,19 +1,44 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import {createAction} from "../utils/reducer/reducer.utils";
 
-import {createUserDocumentFromAuth, onAuthStateChangedListener, signOutUser} from "../utils/firebase/firebase.utils";
+
+import {createUserDocumentFromAuth, onAuthStateChangedListener, signOutUser } from "../utils/firebase/firebase.utils";
 
 // The actual value we want to access
 export const UserContext = createContext({
   currentUser: null,
-  setCurrentUser: () => null,
-});
+ });
 
-// UserProvider is a context used to give children elements access to the auth singleton. The UserProvider also
-// implements an observer via onAuthStateChangedListener which fires anytime the auth state changes. auth state can be
-// changed anytime we call a firebase method for signing in/out etc; This allows us to monitor for changes in auth
-// state in one location - as opposed to hooking into the context within our sign-in and sign-out component.
+export const USER_ACTION_TYPES = {
+  SET_CURRENT_USER : 'SET_CURRENT_USER'
+}
+
+const userReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type){
+    case USER_ACTION_TYPES.SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: payload
+      }
+    default:
+      throw new Error(`unhandled data type ${payload}`)
+  }
+}
+
+const INITIAL_STATE = {
+  currentUser: null,
+}
+
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [ state, dispatch ] = useReducer(userReducer, INITIAL_STATE)
+  const { currentUser } = state
+
+  const setCurrentUser = (user) => {
+    dispatch(createAction( USER_ACTION_TYPES.SET_CURRENT_USER, user))
+  }
+
   const value = { currentUser, setCurrentUser };
 
   useEffect(() => {
@@ -25,7 +50,7 @@ export const UserProvider = ({ children }) => {
       }
 
       setCurrentUser(user);
-      console.log(user)
+      // console.log(user)
     })
     return unsubscribe
   },[]);
