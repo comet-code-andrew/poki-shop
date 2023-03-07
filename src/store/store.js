@@ -1,17 +1,17 @@
 import { compose, createStore, applyMiddleware} from "redux";
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 
 import { rootReducer } from "./root-reducer";
 // Root reducer - combination of all out reducers
 
-const loggerMiddleware = (store) => (store) => (next) => (action) => {
+const loggerMiddleware = (store) => (next) => (action) => {
   if(!action.type) {
     return next(action);
   }
 
   console.log('type: ', action.type);
   console.log('payload: ', action.payload);
-  console.log('currentState', store.getState());
+  console.log('currentState: ', store.getState());
 
   next(action);
 
