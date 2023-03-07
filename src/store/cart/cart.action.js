@@ -32,7 +32,7 @@ const clearCartItem = (cartItems, productToClear) => {
 // These actions are what we can call by the use of the dispatch() function call by redux. Calling dispatch will call
 // all actions.
 export const setIsCartOpen = (boolean) => {
-  createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, boolean)
+  return createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, boolean)
 }
 export const addItemToCart = (cartItems, productToAdd) => {
   const newCartItems = addCartItem(cartItems, productToAdd)
